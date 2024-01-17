@@ -17,59 +17,21 @@
 from base.commutator import *
 
 
-class hamiltonian_fv_uccsdt():
+class hamiltonian_f():
     """
-    UCCSD F+V Hamiltonian up to 1st order
+    just f...
     """
     
     def __init__(self, only_real):
+        #only_real doesnt matter here....
         self.only_real = only_real
+        #domain doesnt matter here....
         self.domain = 'uccsdt'
-        self.pertubation_order = 1
+        self.pertubation_order = 0
         self.comm_list = []
-   
-        #UCC Hbar_0 Terms F + V
-        self.comm_list.append(no_commutator('fv', 1.))
-        #UCC Hbar_1 first term [F, Sigma]
-        self.comm_list.append(commutator('f', 's123', 1.))
-
-
-class hamiltonian_fv_uccsd():
-    """
-    UCCSD F+V Hamiltonian up to 1st order
-    """
     
-    def __init__(self, only_real):
-        self.only_real = only_real
-        self.domain = 'uccsd'
-        self.pertubation_order = 1
-        self.comm_list = []
-   
-        #UCC Hbar_0 Terms F + V
-        self.comm_list.append(no_commutator('fv', 1.))
-        #UCC Hbar_1 first term [F, Sigma]
-        self.comm_list.append(commutator('f', 's12', 1.))
-
-
-class hamiltonian_2nd_uccsdt():
-    """
-    UCC2 Hamiltonian
-    """
-    
-    def __init__(self, only_real):
-        self.only_real = only_real
-        self.domain = 'uccsdt'
-        self.pertubation_order = 2
-        self.comm_list = []
-   
-        #UCC Hbar_0 Terms F + V
+        #UCC Hbar_0 Term F
         self.comm_list.append(no_commutator('f', 1.))
-        #UCC Hbar_1 first term [F, Sigma]
-        self.comm_list.append(commutator('f', 's123', 1.))
-        #UCC Hbar_1 second term 0.5*[V, Sigma]
-        self.comm_list.append(commutator('vo', 's2', 0.5))
-        #UCC Hbar_1 third term 0.5*[V_R, Sigma]
-        self.comm_list.append(commutator('vr', 's2', 0.5))
 
 
 class hamiltonian_ucc2():
@@ -119,23 +81,6 @@ class hamiltonian_ucc3():
         self.comm_list.append(nested_commutator(['vo', 's12', 's12'], ['rest'], 1.0/4.0))
         #UCC Hbar_2 third term 1./4.*[[V_R, Sigma]_R, Sigma]
         self.comm_list.append(nested_commutator(['vr', 's12', 's12'], ['rest'], 1.0/4.0))
-
-
-class hamiltonian_f():
-    """
-    just f...
-    """
-    
-    def __init__(self, only_real):
-        #only_real doesnt matter here....
-        self.only_real = only_real
-        #domain doesnt matter here....
-        self.domain = 'uccsdt'
-        self.pertubation_order = 0
-        self.comm_list = []
-    
-        #UCC Hbar_0 Term F
-        self.comm_list.append(no_commutator('f', 1.))
 
 
 class hamiltonian_ucc4_Hbar01_1st():
@@ -289,97 +234,3 @@ class hamiltonian_ucc5_Hbar2():
         self.comm_list.append(nested_commutator(['vo', 's13', 's13'], ['rest'], 1./4.))
         #UCC Hbar_2 third term 1./4.*[[V_R, Sigma]_R, Sigma]
         self.comm_list.append(nested_commutator(['vr', 's13', 's13'], ['rest'], 1./4.))
-        
-
-class hamiltonian_uccsdt_sd():
-    """
-    Part of the UCC4 Hamiltonian containing one singles and one doubles amplitude
-    """
-
-    def __init__(self, only_real):
-        self.only_real = only_real
-        self.domain = 'uccsd'
-        self.pertubation_order = 3
-        self.comm_list = []
-
-
-class hamiltonian_1st_order_uccsdt():
-    """
-    UCC2 Hamiltonian
-    """
-    
-    def __init__(self, only_real):
-        self.only_real = only_real
-        self.domain = 'uccsdt'
-        self.pertubation_order = 1
-        self.comm_list = []
-   
-        #UCC H_0 Terms F + V
-        self.comm_list.append(no_commutator('fv'))
-        #UCC H_1 first term [F, Sigma]
-        self.comm_list.append(commutator('f', 's123', 1.))
-
-
-class hamiltonian_2nd_order_uccsdt():
-    """
-    UCC2 Hamiltonian
-    """
-    
-    def __init__(self, only_real):
-        self.only_real = only_real
-        self.domain = 'uccsdt'
-        self.pertubation_order = 2
-        self.comm_list = []
-   
-        #UCC H_0 Terms F + V
-        self.comm_list.append(no_commutator('fv'))
-        #UCC H_1 first term [F, Sigma]
-        self.comm_list.append(commutator('f', 's123', 1.))
-        #UCC H_1 second term 0.5*[V, Sigma]
-        self.comm_list.append(commutator('vo', 's123', 0.5))
-        #UCC H_1 third term 0.5*[V_R, Sigma]
-        self.comm_list.append(commutator('vr', 's123', 0.5))
-
-
-class ham_only_4th_e():
-    """
-    UCC2 Hamiltonian
-    """
-    
-    def __init__(self, only_real):
-        self.only_real = only_real
-        self.domain = 'uccsdt'
-        self.pertubation_order = 4
-        self.comm_list = []
-
-        self.comm_list.append(nested_commutator(['vn', 's2', 's2', 's2'], ['ord','rest'], 1./24.))
-        self.comm_list.append(nested_commutator(['vr', 's2', 's2', 's2'], ['rest','rest'], 1./8.))
-        self.comm_list.append(nested_commutator(['vo', 's2', 's2', 's2'], ['rest','rest'], 1./8.))
-        self.comm_list.append(nested_commutator(['vo', 's2', 's2', 's2'], ['rest','ord'], -1./24.))
-        self.comm_list.append(nested_commutator(['vr', 's2', 's2', 's2'], ['rest','ord'], -1./24.))
-
-
-class hamiltonian_3rd_order_uccsdt():
-    """
-    UCC3 Hamiltonian
-    """
-    
-    def __init__(self, only_real):
-        self.only_real = only_real
-        self.domain = 'uccsdt'
-        self.pertubation_order = 3
-        self.comm_list = []
-    
-        #UCC H_0 Terms F + V
-        self.comm_list.append(no_commutator('fv'))
-        #UCC H_1 first term [F, Sigma]
-        self.comm_list.append(commutator('f', 's123', 1.))
-        #UCC H_1 second term 0.5*[V, Sigma]
-        self.comm_list.append(commutator('vo', 's123', 0.5))
-        #UCC H_1 third term 0.5*[V_R, Sigma]
-        self.comm_list.append(commutator('vr', 's123', 0.5))
-        
-        #UCC H_2 first term 1./12.*[[V_N, Sigma], Sigma]
-        self.comm_list.append(nested_commutator(['vn', 's123', 's123'], ['ord'], 1./12.))
-        self.comm_list.append(nested_commutator(['vo', 's123', 's123'], ['rest'], 1./4.))
-        self.comm_list.append(nested_commutator(['vr', 's123', 's123'], ['rest'], 1./4.))
