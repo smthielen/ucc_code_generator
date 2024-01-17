@@ -5,18 +5,18 @@
 #-> commutator: single commutator, no nesting
 #-> nested_commutator: singly or higer nested commutator
 #
-#SMT 5/2023 - 8/2023
+#SMT 2023-2024
 #
 
 
 class no_commutator:
     """
-    Auxiliary class to handle expressions without a commutator 
+    Auxiliary class to handle expressions without a commutator
     """
 
-    def __init__(self, arg, prefactor):
+    def __init__(self, arg, pref):
         self.arg = arg
-        self.prefactor = prefactor
+        self.pref = pref
 
 
 class commutator:
@@ -24,10 +24,10 @@ class commutator:
     Class for commutator expressions
     """
 
-    def __init__(self, arg1 , arg2, prefactor):
+    def __init__(self, arg1 , arg2, pref):
         self.arg1 = arg1
         self.arg2 = arg2
-        self.prefactor = prefactor
+        self.pref = pref
 
 
 class nested_commutator:
@@ -35,11 +35,14 @@ class nested_commutator:
     Class for nested commutator expressions
     """
 
-    def __init__(self, arg_list, comm_type_list, prefactor):
+    def __init__(self, arg_list, comm_type_list, pref):
         self.arg_list = arg_list
         self.comm_type_list = comm_type_list   
-        self.prefactor = prefactor
+        self.pref = pref
 
-        #TODO: do this properly
+        #check for proper setup of nested commutators 
         if ((len(self.arg_list)-2) != len(self.comm_type_list)):
-            print('Incompatible setup for nested commutator!!')
+            raise ValueError('No valid set up of nested commutator: 
+                    Commutator type list ({len(self.comm_type_list)} entries) 
+                    must have two less entries than argument list 
+                    ({len(self.arg_list)} entries).')

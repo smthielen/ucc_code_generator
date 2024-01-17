@@ -9,10 +9,8 @@
 #  a CC Hamiltonian, this key must be also set, but is irrelevant
 #  in the computation
 #
-#SMT 5/2023
+#SMT 2023-2024
 #
-
-
 #TODO: write proper comments!!
 
 
@@ -189,34 +187,3 @@ class isr_ucc4_quadruple():
    
         #ISR quadruply-nested 1/24*[[[[D, Sigma], Sigma], Sigma], Sigma]
         self.comm_list.append(nested_commutator(['d', 's2', 's2', 's2', 's2'], ['ord', 'ord', 'ord'], 1./24.))
-
-
-'''
-class hamiltonian_ucc3():
-    """
-    UCC3 Hamiltonian
-    """
-    
-    def __init__(self, only_real):
-        self.only_real = only_real
-        self.domain = 'uccsd'
-        self.pertubation_order = 3
-        self.comm_list = []
-    
-        #UCC Hbar_0 Terms F + V
-        self.comm_list.append(no_commutator('fv'))
-        #UCC Hbar_1 first term [F, Sigma]
-        self.comm_list.append(commutator('f', 's12', 1.))
-        #UCC Hbar_1 second term 0.5*[V, Sigma]
-        self.comm_list.append(commutator('vo', 's12', 0.5))
-        #UCC Hbar_1 third term 0.5*[V_R, Sigma]
-        self.comm_list.append(commutator('vr', 's12', 0.5))
-        
-        #UCC Hbar_2 first term 1./12.*[[V_N, Sigma], Sigma]
-        self.comm_list.append(nested_commutator(['vn', 's12', 's12'], ['ord'], 1./12.))
-        #UCC Hbar_2 second term 1./4.*[[V, Sigma]_R, Sigma]
-        self.comm_list.append(nested_commutator(['vo', 's12', 's12'], ['rest'], 1./4.))
-        #UCC Hbar_2 third term 1./4.*[[V_R, Sigma]_R, Sigma]
-        self.comm_list.append(nested_commutator(['vr', 's12', 's12'], ['rest'], 1./4.))
-
-'''
