@@ -1,5 +1,5 @@
 #Excitation operators
-#SMT 5/2023
+#SMT 2023-2024
 
 
 from sympy.physics.secondquant import (AntiSymmetricTensor, F, Fd, NO)
@@ -14,7 +14,7 @@ def ti_ia():
     i = symbols('i', below_fermi=True)
     a = symbols('a', above_fermi=True)
     ia = NO(Fd(i)*F(a))
-    return ia, [[i],[a]]
+    return ia, [[i], [a]]
 
 
 def ti_bj():
@@ -138,41 +138,38 @@ def ti_defnml():
     return defnml, [[l,m,n], [d,e,f]]
 
 
-#TODO: finish this!!
-def one_particle_operator():
-    return 0
-
-
-#TODO: finish this dict!!
-excitation_dict = {'00': None, 's': ti_ia, 'd': ti_ijba, 't': ti_ijkcba,
-        'ss': [ti_ia, ti_bj],
-        'sd': [ti_ia, ti_bckj],
-        'st': [ti_ia, ti_bcdlkj],
-        'ds': [ti_ijba, ti_ck],
-        'dd': [ti_ijba, ti_cdlk],
-        'dt': [ti_ijba,ti_cdemlk],
-        'ts': [ti_ijkcba, ti_dl],
-        'td': [ti_ijkcba, ti_deml],
-        'tt': [ti_ijkcba, ti_defnml]
+lhs_excitation_dict = {'s': ti_ia, 'd': ti_ijba, 't': ti_ijkcba,
+        'ss': ti_ia, 'sd': ti_ia, 'st': ti_ia,
+        'ds': ti_ijba, 'dd': ti_ijba, 'dt': ti_ijba,
+        'ts': ti_ijkcba, 'td': ti_ijkcba, 'tt': ti_ijkcba
         }
+
+
+rhs_excitation_dict = {'ss': ti_bj, 'sd': ti_bckj, 'st': ti_bcdlkj,
+        'ds': ti_ck, 'dd': ti_cdlk, 'dt': ti_cdemlk,
+        'ts': ti_dl, 'td': ti_deml, 'tt': ti_defnml
+        }
+
 
 def return_excitation(exc_type):
     if exc_type not in excitation_dict:
         raise ValueError('No valid input for calculation: {exc_type}')
-    #if not isinstance(is_isr, bool):
-    #    raise ValueError('Specification for ISR must be True or False!')
-    Rhs = Lhs = 1
-    #TODO: wow, dirtyy....
-    Rhs_ti = Lhs_ti = [[],[]]
+    
+    #Initialize the lhs and rhs expressions
+    Lhs = Rhs = 1
+    #Initialize as well the corresponding lists of target indices
+    #First list for occupied indices, second one for virtuals
+    Lhs_ti = Rhs_ti = [[], []]
+    
     if exc_type == '00':
         pass
     elif exc_type in ['s','d','t']:
-        Lhs = excitation_dict[exc_type]()[0]
+        Lhs = lhs_excitation_dict[exc_type]()[0]
         Lhs_ti = excitation_dict[exc_type]()[1]
     else:
-        Lhs = excitation_dict[exc_type][0]()[0]
-        Lhs_ti = excitation_dict[exc_type][0]()[1]
-        Rhs = excitation_dict[exc_type][1]()[0]
-        Rhs_ti = excitation_dict[exc_type][1]()[1]
+        Lhs = lhs_excitation_dict[exc_type]()[0]
+        Lhs_ti = lhs_excitation_dict[exc_type]()[1]
+        Rhs = rhs_excitation_dict[exc_type]()[0]
+        Rhs_ti = rhs_excitation_dict[exc_type]()[1]
 
     return Lhs, Rhs, Lhs_ti, Rhs_ti
