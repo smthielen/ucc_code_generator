@@ -67,9 +67,9 @@ class hamiltonian_2nd_uccsdt():
         #UCC Hbar_1 first term [F, Sigma]
         self.comm_list.append(commutator('f', 's123', 1.))
         #UCC Hbar_1 second term 0.5*[V, Sigma]
-        self.comm_list.append(commutator('vo', 's123', 0.5))
+        self.comm_list.append(commutator('vo', 's2', 0.5))
         #UCC Hbar_1 third term 0.5*[V_R, Sigma]
-        self.comm_list.append(commutator('vr', 's123', 0.5))
+        self.comm_list.append(commutator('vr', 's2', 0.5))
 
 
 class hamiltonian_ucc2():
