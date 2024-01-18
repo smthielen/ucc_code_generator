@@ -1,4 +1,10 @@
-
+#
+#TODO: Fix this!
+#
+#Assume a diagonal Fock matrix
+#
+#SMT 2023-2024
+#
 
 occ = 'abcdef'
 vir = 'ijklmn'
