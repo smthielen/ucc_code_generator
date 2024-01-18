@@ -1,13 +1,12 @@
 #
 #Amplitude operators
 #
-#SMT 5/2023
-#
-#CC amplitudes contain "cc" in the name, i. e. "s2cc" would be
+#->CC amplitudes contain "cc" in the name, i. e. "s2cc" would be
 #normal Coupled Cluster while "s2" would be UCC
 #The corresponding bool is set in the return_ampl_operator function
 #
-
+#SMT 2023-2024
+#
 
 from sympy.physics.secondquant import (AntiSymmetricTensor, F, Fd, NO)
 from sympy import (symbols, Rational, Dummy)

@@ -1,5 +1,11 @@
+#
 #Excitation operators
+#
+#Normal-ordered strings containig second-quantized operators
+#to act on the bra and ket reference wavefunction, respectively
+#
 #SMT 2023-2024
+#
 
 
 from sympy.physics.secondquant import (AntiSymmetricTensor, F, Fd, NO)
@@ -155,10 +161,10 @@ def return_excitation(exc_type):
     if exc_type not in excitation_dict:
         raise ValueError('No valid input for calculation: {exc_type}')
     
-    #Initialize the lhs and rhs expressions
+    #Initialize the lhs and rhs expressions as well the corresponding
+    #lists of target indices: first list for occupied indices,
+    #second one for virtuals
     Lhs = Rhs = 1
-    #Initialize as well the corresponding lists of target indices
-    #First list for occupied indices, second one for virtuals
     Lhs_ti = Rhs_ti = [[], []]
     
     if exc_type == '00':

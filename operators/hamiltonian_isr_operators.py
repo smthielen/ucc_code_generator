@@ -1,8 +1,10 @@
-#Hamiltonian operators
-#SMT 5/2023
-
-
-#TODO: write proper comments!!
+#
+#Hamiltonian and ISR operators
+#
+#All operators that occurr in the Hamiltonian and ISR objects
+#
+#SMT 2023-2024
+#
 
 
 from sympy.physics.secondquant import (AntiSymmetricTensor, F, Fd, NO)
@@ -105,6 +107,6 @@ hamiltonian_isr_dict = {'f': f_int, 'vo': vo_int, 'vn': vn_int,
 
 def return_ham_isr_fragment(ham_isr_type):
     if ham_isr_type not in hamiltonian_isr_dict:
-        raise ValueError(f'The hamiltonian/ISR has not been set up correctly!\n'
+        raise ValueError(f'The Hamiltonian/ISR has not been set up correctly!\n'
                 'Key does not exist!')
     return hamiltonian_isr_dict[ham_isr_type]()

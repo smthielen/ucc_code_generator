@@ -1,5 +1,10 @@
+#
+#NOTE:From an older version, not used anymore. Kept only for completeness.
+#
 #All second-quantized operators
+#
 #SMT 5/2023
+#
 
 
 from sympy.physics.secondquant import (AntiSymmetricTensor, F, Fd, NO)

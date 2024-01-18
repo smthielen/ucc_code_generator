@@ -5,26 +5,16 @@
 #
 
 
-#TODO: Check dependancies!!
-
-
-from sympy.physics.secondquant import (AntiSymmetricTensor, KroneckerDelta, wicks,
-        NO, evaluate_deltas, substitute_dummies, Commutator,
-        simplify_index_permutations, PermutationOperator, Symbol, Add, Mul) #simplify_index_permutations and PermutationOperator ??
-
-from sympy import (symbols, Rational, latex, Dummy, Float)
-
-from sympy.core import numbers
-
+from sympy.physics.secondquant import (NO, Commutator, wicks,
+        AntiSymmetricTensor, substitute_dummies)
 from base.commutator import *
-
 from operators.excitation_operators import return_excitation
 from operators.hamiltonian_isr_operators import return_ham_isr_fragment
 from operators.amplitude_operators import return_ampl_operator
-
-from utils.latex import write_latex
 from utils.pretty_dummies import return_pretty_dummies
-from utils.term_list import build_term_list
+
+#TODO:needed??
+#from sympy.core import numbers
 
 
 def check_order(obj, order): 
