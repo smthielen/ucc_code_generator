@@ -43,9 +43,9 @@ def check_order(obj, order):
                         term_order += 2
                 
                 #TODO: Is this condition needed after all?
-                if isinstance(y, Symbol):
-                    if (str(y) == 'i'):
-                        term_order += 1
+                #if isinstance(y, Symbol):
+                #    if (str(y) == 'i'):
+                #        term_order += 1
                 #TODO
 
             if (term_order <= order):
@@ -145,8 +145,8 @@ def evaluate(braket, calc_type):
         if (isinstance(obj, commutator)):
             print("\nEvaluating term with a single commutator...")
             comm = wicks(Commutator(return_ham_isr_fragment(obj.arg1),
-                    return_ampl_operator(obj.arg2, hamiltonian_isr.only_real)))
-            expr = obj.prefactor*wicks(lhs*comm*rhs, simplify_kronecker_deltas=True,
+                    return_ampl_operator(obj.arg2, braket.only_real)))
+            expr = obj.pref*wicks(lhs*comm*rhs, simplify_kronecker_deltas=True,
                     keep_only_fully_contracted=True)
             equation += substitute_dummies(expr, new_indices=True,
                     pretty_indices=pretty_dummies_dict)
@@ -175,7 +175,7 @@ def evaluate(braket, calc_type):
                     if (obj.comm_type_list[i-2] == 'ord'): 
                         nested_comm = wicks(Commutator(nested_comm,
                                 return_ampl_operator(obj.arg_list[i],
-                                hamiltonian_isr.only_real)))
+                                braket.only_real)))
                     
                     #ND or R part, check for corresponding contributions!
                     else: 
@@ -183,10 +183,10 @@ def evaluate(braket, calc_type):
                                 obj.comm_type_list[i-2], hamiltonian_isr.domain)
                         nested_comm = wicks(Commutator(nested_comm,
                                 return_ampl_operator(obj.arg_list[i],
-                                hamiltonian_isr.only_real)))
+                                braket.only_real)))
                     count+=1
 
-            expr = obj.prefactor*wicks(lhs*nested_comm*rhs,
+            expr = obj.pref*wicks(lhs*nested_comm*rhs,
                     simplify_kronecker_deltas=True,
                     keep_only_fully_contracted=True)
             equation += substitute_dummies(expr, new_indices=True,

@@ -144,7 +144,7 @@ def ti_defnml():
     return defnml, [[l,m,n], [d,e,f]]
 
 
-lhs_excitation_dict = {'s': ti_ia, 'd': ti_ijba, 't': ti_ijkcba,
+lhs_excitation_dict = {'00': None, 's': ti_ia, 'd': ti_ijba, 't': ti_ijkcba,
         'ss': ti_ia, 'sd': ti_ia, 'st': ti_ia,
         'ds': ti_ijba, 'dd': ti_ijba, 'dt': ti_ijba,
         'ts': ti_ijkcba, 'td': ti_ijkcba, 'tt': ti_ijkcba
@@ -158,7 +158,7 @@ rhs_excitation_dict = {'ss': ti_bj, 'sd': ti_bckj, 'st': ti_bcdlkj,
 
 
 def return_excitation(exc_type):
-    if exc_type not in excitation_dict:
+    if exc_type not in lhs_excitation_dict:
         raise ValueError('No valid input for calculation: {exc_type}')
     
     #Initialize the lhs and rhs expressions as well the corresponding
@@ -171,7 +171,7 @@ def return_excitation(exc_type):
         pass
     elif exc_type in ['s','d','t']:
         Lhs = lhs_excitation_dict[exc_type]()[0]
-        Lhs_ti = excitation_dict[exc_type]()[1]
+        Lhs_ti = lhs_excitation_dict[exc_type]()[1]
     else:
         Lhs = lhs_excitation_dict[exc_type]()[0]
         Lhs_ti = lhs_excitation_dict[exc_type]()[1]

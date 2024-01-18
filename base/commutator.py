@@ -42,7 +42,7 @@ class nested_commutator:
 
         #check for proper setup of nested commutators 
         if ((len(self.arg_list)-2) != len(self.comm_type_list)):
-            raise ValueError('No valid set up of nested commutator: 
-                    Commutator type list ({len(self.comm_type_list)} entries) 
-                    must have two less entries than argument list 
-                    ({len(self.arg_list)} entries).')
+            raise ValueError('No valid set up of nested commutator: '\
+                    'Commutator type list ({len(self.comm_type_list)} entries) '\
+                    'must have two less entries than argument list '\
+                    '({len(self.arg_list)} entries).')
