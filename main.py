@@ -16,7 +16,7 @@ from utils.latex import *
 
 
 #True: only real cluster amplitudes
-hamiltonian_list = [hamiltonian_ucc2(False)]
+hamiltonian_list = [hamiltonian_ucc3(False)]
 
 #Calculation type
 calc_type = 'd'

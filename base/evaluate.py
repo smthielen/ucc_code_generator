@@ -74,11 +74,12 @@ def check_commutator_type(nested_comm, comm_type, domain):
             if (isinstance(y, NO)):
                 num_creators = len(list(y.iter_q_creators()))
                 num_annihilators = len(list(y.iter_q_annihilators()))
-        
-        #TODO: Is this condition needed after all?
+       
+        #Fully contracted expressions always vanish except
+        #for the last commutator which is always of "ord" type.
+        #Therefore, this type of expressions may be discarded here.
         if (num_creators == 0 and num_annihilators == 0):
-            print('Disconnected diagram fragment!')
-        #TODO
+            pass
 
         #At first, check for diagrans that have only open lines above or beneath
         #all vertices
@@ -90,24 +91,20 @@ def check_commutator_type(nested_comm, comm_type, domain):
             if (comm_type == 'nd' and ((0.5*num_creators in exc_lvl) or
                     (0.5*num_annihilators in exc_lvl))):
                 proper_comm += x
-                print('Non-diagonal operation done!')
 
             #If the excitation level is not in the corresponding UCC domain,
             #this is contributing to the rest part
             elif (comm_type == 'rest' and ((0.5*num_creators) not in exc_lvl) and 
                     (num_creators != 0)):
                 proper_comm += x
-                print('Rest operation done')
             elif (comm_type == 'rest' and ((0.5*num_annihilators) not in exc_lvl) and
                     (num_annihilators != 0)):
                 proper_comm += x
-                print('Rest operation done')
         
         #Diagrams that have open lines above and beneath all vertices are
         #by definition always belonging to the rest part
         elif (comm_type == 'rest'):
             proper_comm += x
-            print('Rest operation done')
 
     return proper_comm
 
@@ -158,16 +155,16 @@ def evaluate(braket, calc_type):
             
             #Nested commutator intermediate storage
             nested_comm = 0
-            count = 0
+            i = 0
             
-            while (count < (len(obj.arg_list))):
-                if (count == 0):
+            while (i < (len(obj.arg_list))):
+                if (i == 0):
                     print("\nNesting lvl 0")
                     nested_comm = wicks(Commutator(
                             return_ham_isr_fragment(obj.arg_list[i]),
                             return_ampl_operator(obj.arg_list[i+1],
-                            hamiltonian_isr.only_real)))
-                    count+=2
+                            braket.only_real)))
+                    i+=2
                 else:
                     print("\nNesting lvl "+str(i-1))
                     
@@ -180,11 +177,11 @@ def evaluate(braket, calc_type):
                     #ND or R part, check for corresponding contributions!
                     else: 
                         nested_comm = check_commutator_type(nested_comm,
-                                obj.comm_type_list[i-2], hamiltonian_isr.domain)
+                                obj.comm_type_list[i-2], braket.domain)
                         nested_comm = wicks(Commutator(nested_comm,
                                 return_ampl_operator(obj.arg_list[i],
                                 braket.only_real)))
-                    count+=1
+                    i+=1
 
             expr = obj.pref*wicks(lhs*nested_comm*rhs,
                     simplify_kronecker_deltas=True,

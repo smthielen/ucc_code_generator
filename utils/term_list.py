@@ -115,11 +115,7 @@ def build_term_list(expr, perm_dict):
                             indices += u.name
                         for l in y.lower:
                             indices += l.name
-                        #print(str(y.symbol))
                         te.add_tensor(str(y.symbol), indices)
-                    #else:
-                    #    print(',.')
-                    #    print(y)
                 te.add_prefactor(x.args[0])
                
                 perm_operator = ''
@@ -128,9 +124,6 @@ def build_term_list(expr, perm_dict):
                 for perm_types in perm_dict.values():
                     for perms in perm_types:
                         if xx in perms:
-                            print(xx)
-                            print(perms)
-                            print(get_key(perm_types, perm_dict))
                             perm_key = get_key(perm_types, perm_dict)
                             perm_operator += str(perm_key)
                             te.add_permutations(perm_operator)
@@ -158,81 +151,9 @@ def build_term_list(expr, perm_dict):
                         cnew.add_common_tensor(te)
                         tensor_list.add_expression(cnew)
 
-            
-    
     else:
         print("Nothing to permute in a single term....")
 
-
-    #Now, if wished, check for permutations
-    #permutation_list = []
-    
-    #if not perms:
-    #    print("Did not ask for search of permutations!")
-    '''
-    else:
-
-        for p in perms:
-            ti1, ti2 = p[0], p[1]
-            print(ti1)
-            print(ti2)
-
-            permutation_list_c = []
-            for nc, c in enumerate(tensor_list.expressions):
-
-                for ni, i in enumerate(c.common_tensors):
-                    ti1_pos1 = ti2_pos1 = -1
-                    
-                    for idx_pos, idx in enumerate(i.indices):
-                        if idx.find(ti1) != -1:
-                            ti1_pos1 = idx_pos
-                        if idx.find(ti2) != -1:
-                            ti2_pos1 = idx_pos
-
-                    for nj, j in enumerate(c.common_tensors):
-                        ti1_pos2 = ti2_pos2 = -1
-                   
-                        if nj > ni:
-                            for idx_pos, idx in enumerate(j.indices):
-                                print(idx_pos)
-                                print(idx)
-                                if idx.find(ti1) != -1:
-                                    ti1_pos2 = idx_pos
-                                if idx.find(ti2) != -1:
-                                    ti2_pos2 = idx_pos
-
-                            if ((i.tensors[ti1_pos1] == j.tensors[ti2_pos2]) and (i.tensors[ti2_pos1] == j.tensors[ti1_pos2])):
-                                print('heyja')
-                                print(ti1_pos1)
-                                print(ti2_pos2)
-                                print(ti2_pos1)
-                                print(ti1_pos2)
-                                print(i.tensors)
-                                print(i.indices)
-                                print(j.tensors)
-                                print(j.indices)
-                                rest_ti1_pos1= ''.join(sorted(i.indices[ti1_pos1].replace(ti1,'')))
-                                print(rest_ti1_pos1)
-                                rest_ti2_pos1= ''.join(sorted(i.indices[ti2_pos1].replace(ti2,'')))
-                                print(rest_ti2_pos1)
-                                
-                                rest_ti1_pos2= ''.join(sorted(j.indices[ti1_pos2].replace(ti1,'')))
-                                print(rest_ti1_pos2)
-                                rest_ti2_pos2= ''.join(sorted(j.indices[ti2_pos2].replace(ti2,'')))
-                                print(rest_ti2_pos2)
-
-                                if (rest_ti1_pos1 == rest_ti2_pos2) and (rest_ti1_pos2 == rest_ti2_pos1):
-                                    print('BINGO!!')
-                                    permutation_list_c.append([ti1+ti2, nc+1, ni+1, nj+1])
-
-            permutation_list.append(permutation_list_c)
-
-            #TODO: Is an else case needed after all?!
-            #else:
-            #elif (isinstance(x, AntiSymmetricTensor)):
-            #    print('.')
-            #    print(x.symbol)
-    '''
     return tensor_list #, permutation_list
 
 
